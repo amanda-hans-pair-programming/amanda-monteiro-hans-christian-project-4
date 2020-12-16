@@ -15,7 +15,7 @@ app.displayRecipes = function (dishes) {
         }, 1000);
     }
 
-    // Pull results from the API and dynamically add them on the page
+    // Pull results from the API and dynamically add them on the page, only show Full Recipe and YouTube link if available
     dishes.forEach(function (dish) {
         const displayOnPage = `
         <ul class="recipesContainer ${dish.strArea}" id="buttonList">
@@ -23,8 +23,10 @@ app.displayRecipes = function (dishes) {
                 <h4>${dish.strMeal}</h4>
                 <img src="${dish.strMealThumb}" alt="${dish.strMeal}">
                 <div class="recipeLinks">
-                    <p><i class="fas fa-book-reader"></i><a href="${dish.strSource}" target="_blank">Full Recipe</a></p>
-                    <p><i class="fab fa-youtube"></i><a href="${dish.strYoutube}" target="_blank">YouTube</a></p>
+                    ${dish.strSource &&
+                    `<p><i class="fas fa-book-reader"></i><a href="${dish.strSource}" target="_blank">Full Recipe</a></p>`}
+                    ${dish.strYoutube &&
+                    `<p><i class="fab fa-youtube"></i><a href="${dish.strYoutube}" target="_blank">YouTube</a></p>`}
                 </div>
                 <p class="dishCountry">${dish.strArea}</p>
             </li>
